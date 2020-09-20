@@ -1,29 +1,36 @@
-source 'http://rubygems.org'
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
 
 gemspec
 
 gem 'rails', '~> 5.1.0'
 # TODO: Unlock this
+gem 'puma'
+gem 'rake'
 gem 'sprockets', '< 4.0.0'
 gem 'sqlite3'
 gem 'yard'
-gem 'rake'
 
 group :test do
-  gem 'rspec'
-  gem 'rspec-rails', '~> 3.5.0'
   gem 'capybara'
   gem 'capybara-selenium'
+  gem 'rspec'
+  gem 'rspec-rails', '~> 3.5.0'
   gem 'selenium-webdriver', '~> 3.4.4'
-  gem 'chromedriver-helper'
+  gem 'webdrivers'
 end
 
 group :development do
+  gem 'rubocop'
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
+  gem 'rubocop-rake'
+  gem 'rubocop-rspec'
   gem 'web-console', '~> 2.0'
 end
 
 group :development, :test do
-  gem 'pry-rails'
   gem 'netzke-testing'
-  gem 'puma'
+  gem 'pry-rails'
 end

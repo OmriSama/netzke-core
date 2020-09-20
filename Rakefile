@@ -1,4 +1,6 @@
-require "bundler/gem_tasks"
+# frozen_string_literal: true
+
+require 'bundler/gem_tasks'
 require 'yard'
 
 # Load tasks, that will be available for Rails user
@@ -12,7 +14,7 @@ YARD::Rake::YardocTask.new do |t|
 end
 
 namespace :yard do
-  desc "Publish docs to api.netzke.org"
+  desc 'Publish docs to api.netzke.org'
   task publish: :yard do
     dir = 'www/api.netzke.org/core'
     puts "Publishing to fl:#{dir}..."
