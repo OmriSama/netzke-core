@@ -2,7 +2,9 @@ source 'http://rubygems.org'
 
 gemspec
 
-gem 'rails', '~>5.1.0'
+gem 'rails', '~> 5.1.0'
+# TODO: Unlock this
+gem 'sprockets', '< 4.0.0'
 gem 'sqlite3'
 gem 'yard'
 gem 'rake'
@@ -23,4 +25,5 @@ end
 group :development, :test do
   gem 'pry-rails'
   gem 'netzke-testing'
+  gem 'puma'
 end
