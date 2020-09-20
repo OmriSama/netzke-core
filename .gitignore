@@ -10,3 +10,4 @@ spec/rails_app/db/schema.rb
 .vimrc
 Gemfile.lock
 .ruby-version
+.bundle/
