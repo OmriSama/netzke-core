@@ -18,8 +18,8 @@ module ActionDispatch::Routing
 
       get prefix.to_s => "#{controller}#index", as: :netzke
       get "#{prefix}/ext(.:format)" => "#{controller}#ext", as: :netzke_ext
-      match "#{prefix}/direct" => "#{controller}#direct", as: :netzke_direct, via: %i[get post]
-      match "#{prefix}/dispatcher" => "#{controller}#dispatcher", as: :netzke_dispatcher, via: %i[get post]
+      match "#{prefix}/direct" => "#{controller}#direct", as: :netzke_direct, via: [:get, :post]
+      match "#{prefix}/dispatcher" => "#{controller}#dispatcher", as: :netzke_dispatcher, via: [:get, :post]
     end
   end
 end

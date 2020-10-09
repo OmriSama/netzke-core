@@ -150,8 +150,9 @@ module Netzke::Core
     def unknown_exception(entity_name, entity)
       client.netzke_set_result(error: {
                                  type: "UNKNOWN_#{entity_name.to_s.upcase}",
-                                 msg: "Component '#{self.class.name}' does not have #{entity_name} '#{entity}'"
-                               })
+                                 msg: "Component '#{self.class.name}' does not have #{entity_name} '#{entity}'",
+                               },
+                              )
 
       client
     end

@@ -63,7 +63,7 @@ module Netzke::Core
     def configure_client(c)
       c.merge!(normalized_config)
 
-      %w[id item_id path netzke_components endpoints xtype alias i18n netzke_plugins].each do |thing|
+      ['id', 'item_id', 'path', 'netzke_components', 'endpoints', 'xtype', 'alias', 'i18n', 'netzke_plugins'].each do |thing|
         js_thing = send(:"js_#{thing}")
         c[thing] = js_thing if js_thing.present?
         c.client_config = client_config.netzke_literalize_keys # because this is what we'll get back from client side as server config, and the keys must be snake_case

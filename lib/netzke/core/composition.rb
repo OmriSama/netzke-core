@@ -125,8 +125,8 @@ module Netzke::Core
           component_name,
           {
             item_id: item_id,
-            client_config: Netzke::Support.permit_hash_params(params[:client_config])
-          }
+            client_config: Netzke::Support.permit_hash_params(params[:client_config]),
+          },
         )
 
         if cmp_instance

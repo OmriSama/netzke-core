@@ -10,10 +10,10 @@ module Netzke::Core
 
     module ClassMethods
       # Defines a plugin
-      def plugin(name, &block)
+      def plugin(name)
         register_plugin(name)
         component name, eager_load: true do |c|
-          block.call(c) if block_given?
+          yield(c) if block_given?
         end
       end
 

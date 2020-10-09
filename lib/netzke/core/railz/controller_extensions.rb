@@ -46,7 +46,7 @@ module Netzke
       module ClassMethods
         # inform AbstractController::Base that methods direct, ext, and dispatcher are actually actions
         def action_methods
-          super.merge(%w[ext direct dispatcher].to_set)
+          super.merge(['ext', 'direct', 'dispatcher'].to_set)
         end
       end
 
@@ -97,7 +97,8 @@ module Netzke
           tid: request.tid,
           action: component_name,
           method: request.endpoint,
-          result: endpoint_response.netzke_jsonify }
+          result: endpoint_response.netzke_jsonify,
+}
       end
 
       # Receives DirectRequest, returns an array/hash of methods for the client side (consumed by netzkeBulkExecute)

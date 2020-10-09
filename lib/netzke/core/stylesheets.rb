@@ -9,8 +9,8 @@ module Netzke::Core
 
     module ClassMethods
       # Configures JS class
-      def client_styles(&block)
-        block.call(css_config)
+      def client_styles
+        yield(css_config)
       end
 
       def css_config
@@ -29,7 +29,7 @@ module Netzke::Core
         res = ''
 
         # include the base-class javascript if doing JS inheritance
-        if !client_class_config.extending_extjs_component? && !cached.include?(superclass.name)
+        if !client_class_config.extending_extjs_component? && cached.exclude?(superclass.name)
           res << superclass.css_code << "\n"
         end
 
@@ -43,7 +43,7 @@ module Netzke::Core
       code = dependency_classes.inject('') do |r, k|
         cached.include?(k.client_class_config.xtype) ? r : r + k.css_code(cached)
       end
-      code.blank? ? nil : code
+      code.presence
     end
   end
 end

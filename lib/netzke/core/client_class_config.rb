@@ -17,7 +17,7 @@ module Netzke
         @explicit_override_paths = []
         @properties = {
           extend: extended_class,
-          alias: class_alias
+          alias: class_alias,
         }
         @properties[:mixins] = ['Netzke.Base'] if extending_extjs_component?
         @translated_properties = []

@@ -3,7 +3,7 @@ require 'uglifier'
 module Netzke
   module Core
     module DynamicAssets
-      CORE_FILES = %w[js_extensions core notifications remoting_provider base routing].freeze
+      CORE_FILES = ['js_extensions', 'core', 'notifications', 'remoting_provider', 'base', 'routing'].freeze
 
       class << self
         def ext_js(form_authenticity_token)

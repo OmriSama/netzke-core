@@ -1,6 +1,6 @@
 class Array
   def netzke_deep_map(&block)
-    map { |el| el.respond_to?(:netzke_deep_map) ? block.call(el.netzke_deep_map(&block)) : block.call(el) }.compact
+    map { |el| el.respond_to?(:netzke_deep_map) ? yield(el.netzke_deep_map(&block)) : yield(el) }.compact
   end
 
   def netzke_deep_replace(&block)
