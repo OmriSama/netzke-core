@@ -1,15 +1,15 @@
 class Hash
   def netzke_deep_map(&block)
-    self.dup.tap do |h|
-      h.each_pair do |k,v|
+    dup.tap do |h|
+      h.each_pair do |k, v|
         h[k] = v.netzke_deep_map(&block) if v.respond_to?('netzke_deep_map')
       end
     end
   end
 
   def netzke_deep_replace(&block)
-    self.dup.tap do |h|
-      h.each_pair do |k,v|
+    dup.tap do |h|
+      h.each_pair do |k, v|
         if v.is_a?(Hash)
           res = yield(v)
           if res == v # no changes, need to go further down
@@ -18,16 +18,14 @@ class Hash
             h[k] = res
           end
         else
-          if v.is_a?(Array)
-            h[k] = v.netzke_deep_replace(&block)
-          end
+          h[k] = v.netzke_deep_replace(&block) if v.is_a?(Array)
         end
       end
     end
   end
 
   def netzke_jsonify
-    self.inject({}) do |h,(k,v)|
+    inject({}) do |h, (k, v)|
       new_key = if k.is_a?(Netzke::Core::JsonLiteral)
                   k
                 elsif k.is_a?(String)
@@ -62,7 +60,7 @@ class Hash
   end
 
   def netzke_literalize_keys
-    netzke_update_keys{ |k| Netzke::Core::JsonLiteral.new(k.to_s) }
+    netzke_update_keys { |k| Netzke::Core::JsonLiteral.new(k.to_s) }
     self
   end
 end

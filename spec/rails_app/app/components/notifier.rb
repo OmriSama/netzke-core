@@ -5,10 +5,10 @@ class Notifier < Netzke::Base
 
   def configure(c)
     super
-    c.bbar = [:notify, :multiple_notify, :server_notify]
+    c.bbar = %i[notify multiple_notify server_notify]
   end
 
   endpoint :notify do
-    client.netzke_notify("Message from server", delay: 3000, title: 'Server notification')
+    client.netzke_notify('Message from server', delay: 3000, title: 'Server notification')
   end
 end

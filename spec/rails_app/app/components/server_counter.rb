@@ -8,34 +8,34 @@ class ServerCounter < Netzke::Base
 
   def configure(c)
     super
-    c.bbar = [:count_one_time, :count_seven_times, :count_eight_times_special, :fail_in_the_middle, :do_ordered, :fail_two_out_of_five]
-    c.title = "Server Counter"
+    c.bbar = %i[count_one_time count_seven_times count_eight_times_special fail_in_the_middle do_ordered fail_two_out_of_five]
+    c.title = 'Server Counter'
   end
 
   endpoint :count do |params|
     component_session[:count] ||= 0
     component_session[:count] += params[:how_many]
-    client.set_title("I am at " + component_session[:count].to_s + (params[:special] ? ' and i was invoked specially' : ''))
+    client.set_title('I am at ' + component_session[:count].to_s + (params[:special] ? ' and i was invoked specially' : ''))
   end
 
   endpoint :successing_endpoint do
-    client.set_title("Something successed ")
+    client.set_title('Something successed ')
   end
 
   endpoint :failing_endpoint do
-    throw "something happened"
+    throw 'something happened'
   end
 
   endpoint :first_ep do
-    component_session[:count2]||=0
-    component_session[:count2]+=1
-    client.set_title("First. "+ component_session[:count2].to_s)
+    component_session[:count2] ||= 0
+    component_session[:count2] += 1
+    client.set_title('First. ' + component_session[:count2].to_s)
   end
 
   endpoint :second_ep do
-    component_session[:count2]||=0
-    component_session[:count2]+=1
-    client.set_title("Second. "+ component_session[:count2].to_s)
+    component_session[:count2] ||= 0
+    component_session[:count2] += 1
+    client.set_title('Second. ' + component_session[:count2].to_s)
   end
 
   endpoint :fail_two_out_of_five do |count|
@@ -43,13 +43,12 @@ class ServerCounter < Netzke::Base
     component_session[:count] += 1
 
     # 2nd and 4th request fail, but only first time, not at a retry
-    if ([2,4].include?(component_session[:count]) && !component_session[:is_retry])
+    if [2, 4].include?(component_session[:count]) && !component_session[:is_retry]
       component_session[:is_retry] = true
-      throw "Oops..."
+      throw 'Oops...'
     end
 
     component_session[:is_retry] = false
     client.append_to_title(count)
   end
-
 end

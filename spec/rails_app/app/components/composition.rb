@@ -5,14 +5,14 @@ class Composition < Netzke::Base
   action :west_panel
 
   action :show_hidden_window do |c|
-    c.text = "Show pre-loaded window"
+    c.text = 'Show pre-loaded window'
   end
 
   def configure(c)
     super
-    c.bbar = [ :west_panel, :update_center_panel, :update_west_from_server, :update_east_south_from_server,
-               :show_hidden_window ]
-    c.title = c.client_config[:title] || "Composition"
+    c.bbar = %i[west_panel update_center_panel update_west_from_server update_east_south_from_server
+                show_hidden_window]
+    c.title = c.client_config[:title] || 'Composition'
     c.items = [
       :north_panel,
       :center_panel,
@@ -43,7 +43,7 @@ class Composition < Netzke::Base
 
   component :north_panel do |c|
     c.klass = SimpleComponent
-    c.title = "Should not be seen"
+    c.title = 'Should not be seen'
     c.region = :north
     c.height = 80
     c.excluded = true
@@ -51,20 +51,20 @@ class Composition < Netzke::Base
 
   component :east_center_panel do |c|
     c.klass = SimpleComponent
-    c.title = "A panel"
+    c.title = 'A panel'
     c.border = false
   end
 
   component :east_south_panel do |c|
     c.klass = SimpleComponent
-    c.title = "Another panel"
+    c.title = 'Another panel'
     c.border = false
   end
 
   # Eagerly loaded Netzke component that only requires instantiating at client
   component :hidden_window, eager_load: true do |c|
     c.klass = SimpleWindow
-    c.title = "Pre-loaded window"
+    c.title = 'Pre-loaded window'
     c.width = 300
     c.height = 200
     c.modal = true

@@ -1,6 +1,6 @@
 class SimpleTabPanel < Netzke::Base
   client_class do |c|
-    c.extend = "Ext.tab.Panel"
+    c.extend = 'Ext.tab.Panel'
     c.active_tab = 0
   end
 
@@ -21,7 +21,7 @@ class SimpleTabPanel < Netzke::Base
   end
 
   def configure(c)
-    c.items = [:endpoints, :hello_world, :endpoints_extended, :simple_panel_one, :simple_panel_two]
+    c.items = %i[endpoints hello_world endpoints_extended simple_panel_one simple_panel_two]
     super
   end
 end

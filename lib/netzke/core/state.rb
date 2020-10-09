@@ -24,7 +24,7 @@ module Netzke::Core
       # Delegate everything to session
       def method_missing(method, *args)
         session_data = to_hash
-        session_data.send(method, *args).tap do |d|
+        session_data.send(method, *args).tap do |_d|
           Netzke::Base.session[:netzke_states] = state_session.merge(@key => session_data)
         end
       end

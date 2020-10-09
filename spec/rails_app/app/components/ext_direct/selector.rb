@@ -1,7 +1,7 @@
 module ExtDirect
   class Selector < Netzke::Base
     client_class do |c|
-      c.extend = "Ext.FormPanel"
+      c.extend = 'Ext.FormPanel'
       c.body_padding = 5
 
       c.on_update = l(<<-JS)
@@ -15,7 +15,7 @@ module ExtDirect
 
     def configure(c)
       super
-      c.items = [{:name => "user", :field_label => "User", :xtype => :textfield}]
+      c.items = [{ name: 'user', field_label: 'User', xtype: :textfield }]
       c.bbar = [:update]
     end
   end

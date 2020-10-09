@@ -11,7 +11,7 @@ class JsInclusion < Netzke::Base
 
   def configure(c)
     super
-    c.bbar = [:action_one, :action_two, :action_three]
-    c.title = "JsInclusion component"
+    c.bbar = %i[action_one action_two action_three]
+    c.title = 'JsInclusion component'
   end
 end

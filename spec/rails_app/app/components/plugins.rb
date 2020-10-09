@@ -4,6 +4,6 @@ class Plugins < Netzke::Base
   plugin :plugin_with_components
 
   client_class do |c|
-    c.title = "Plugins component"
+    c.title = 'Plugins component'
   end
 end

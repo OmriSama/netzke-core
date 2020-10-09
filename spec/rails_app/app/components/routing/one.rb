@@ -1,7 +1,7 @@
 module Routing
   class One < Netzke::Base
     client_class do |c|
-      c.title = "One"
+      c.title = 'One'
       c.layout = :fit
     end
 

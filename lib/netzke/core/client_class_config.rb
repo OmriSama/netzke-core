@@ -13,11 +13,11 @@ module Netzke
       def initialize(klass, called_from)
         @klass = klass
         @called_from = @dir = called_from
-        @requires_as_string = ""
+        @requires_as_string = ''
         @explicit_override_paths = []
         @properties = {
           extend: extended_class,
-          alias: class_alias,
+          alias: class_alias
         }
         @properties[:mixins] = ['Netzke.Base'] if extending_extjs_component?
         @translated_properties = []
@@ -64,7 +64,7 @@ module Netzke
       def method_missing(name, *args)
         if name =~ /(.+)=$/
           value = args.first
-          @properties[$1.to_sym] = value
+          @properties[Regexp.last_match(1).to_sym] = value
         else
           @properties[name.to_sym]
         end
@@ -90,7 +90,8 @@ module Netzke
       #       c.require "#{File.dirname(__FILE__)}/my_component/one.js", "#{File.dirname(__FILE__)}/my_component/two.js"
       #     end
       def require(*refs)
-        raise(ArgumentError, "wrong number of arguments (0 for 1 or more)") if refs.empty?
+        raise(ArgumentError, 'wrong number of arguments (0 for 1 or more)') if refs.empty?
+
         refs.each do |ref|
           @requires_as_string << require_from_file(normalize_filepath(ref))
         end
@@ -120,7 +121,7 @@ module Netzke
       #
       # Also, see defining JavaScript prototype properties with {ClientClassConfig#method_missing}.
       def include(*refs)
-        raise(ArgumentError, "wrong number of arguments (0 for 1 or more)") if refs.empty?
+        raise(ArgumentError, 'wrong number of arguments (0 for 1 or more)') if refs.empty?
 
         refs.each do |ref|
           @explicit_override_paths << normalize_filepath(ref)
@@ -148,13 +149,13 @@ module Netzke
 
       # The alias, required by Ext.Component, e.g.: widget.helloworld
       def class_alias
-        [alias_prefix, xtype].join(".")
+        [alias_prefix, xtype].join('.')
       end
 
       # Builds this component's xtype
       # E.g.: netzkebasepackwindow, netzkebasepackgridpanel
       def xtype
-        @klass.name.gsub("::", "").downcase
+        @klass.name.gsub('::', '').downcase
       end
 
       # Component's JavaScript class declaration.
@@ -176,19 +177,19 @@ Netzke.cache.push('#{xtype}');
 
       # Additional scope for your Netzke components.
       def default_scope
-        ""
+        ''
       end
 
       # Returns the scope of this component
       # e.g. "Netzke.Basepack"
       def scope
-        [default_scope.presence, *@klass.name.split("::")[0..-2]].compact.join(".")
+        [default_scope.presence, *@klass.name.split('::')[0..-2]].compact.join('.')
       end
 
       # Returns the full name of the JavaScript class, including the scopes *and* the common scope, which is 'Netzke'.
       # E.g.: "Netzke.Basepack.GridPanel"
       def class_name
-        [scope.presence, @klass.name.split("::").last].compact.join(".")
+        [scope.presence, @klass.name.split('::').last].compact.join('.')
       end
 
       # Whether we have to inherit from an Ext JS component, or a Netzke component
@@ -203,23 +204,23 @@ Netzke.cache.push('#{xtype}');
 
       # Generates declaration of the JS class as direct extension of a Ext component
       def class_declaration
-%(Ext.define('#{class_name}', #{properties_as_string});
+        %(Ext.define('#{class_name}', #{properties_as_string});
 
 #{overrides_as_string})
       end
 
       # Alias prefix: 'widget' for components, 'plugin' for plugins
       def alias_prefix
-        @klass < Netzke::Plugin ? "plugin" : "widget"
+        @klass < Netzke::Plugin ? 'plugin' : 'widget'
       end
 
       def properties_as_string
-        [properties.netzke_jsonify.to_json.chop].compact.join(",\n") + "}"
+        [properties.netzke_jsonify.to_json.chop].compact.join(",\n") + '}'
       end
 
       # Default extended class
       def extended_class
-        extending_extjs_component? ? "Ext.panel.Panel" : @klass.superclass.client_class_config.class_name
+        extending_extjs_component? ? 'Ext.panel.Panel' : @klass.superclass.client_class_config.class_name
       end
 
       def expand_client_code_path(ref)
@@ -231,7 +232,7 @@ Netzke.cache.push('#{xtype}');
 
         @override_paths = @explicit_override_paths
         @dir = @called_from
-        default_override_path = expand_client_code_path(@dir.split("/").last)
+        default_override_path = expand_client_code_path(@dir.split('/').last)
         @override_paths.prepend(default_override_path) if File.exist?(default_override_path)
         @override_paths
       end

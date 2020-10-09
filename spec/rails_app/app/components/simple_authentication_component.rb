@@ -6,7 +6,7 @@ class SimpleAuthenticationComponent < Netzke::Base
 
   def configure(c)
     super
-    c.tbar = signed_in? ? [current_user_info, "->", :sign_out] : ["->", :sign_in]
+    c.tbar = signed_in? ? [current_user_info, '->', :sign_out] : ['->', :sign_in]
   end
 
   client_class do |c|
@@ -27,18 +27,18 @@ class SimpleAuthenticationComponent < Netzke::Base
     JS
   end
 
-  endpoint :sign_in do |params,this|
+  endpoint :sign_in do |_params, _this|
     session[:user_id] = 1
     client.reload_page
   end
 
-  endpoint :sign_out do |params,this|
+  endpoint :sign_out do |_params, _this|
     session.delete(:user_id)
     client.reload_page
   end
 
   def current_user_info
-    session[:user_id] && "Signed in as user#: #{session[:user_id]}" || ""
+    session[:user_id] && "Signed in as user#: #{session[:user_id]}" || ''
   end
 
   def signed_in?

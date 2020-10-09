@@ -15,8 +15,9 @@ module Netzke::Core
       #   end
       #
       # For more details see {Netzke::Core::ClientClassConfig}
-      def client_class &block
-        raise ArgumentError, "client_class called without block" unless block_given?
+      def client_class(&block)
+        raise ArgumentError, 'client_class called without block' unless block_given?
+
         @configure_blocks ||= []
         @configure_blocks << [block, dir(caller.first)]
       end
@@ -40,7 +41,7 @@ module Netzke::Core
 
         (@configure_blocks || []).each do |block, dir|
           @client_class_config.dir = dir
-          block.call(@client_class_config) if block
+          block&.call(@client_class_config)
         end
 
         @client_class_config
@@ -48,13 +49,13 @@ module Netzke::Core
 
       # Path to the dir with this component/extension's extra code (ruby modules, scripts, stylesheets)
       def dir(cllr)
-        %Q(#{cllr.split(".rb:").first})
+        cllr.split('.rb:').first.to_s
       end
 
       # Converts given string to a string that returns itself as its JSON-encoded form for given string. See
       # {ClientCode#l}
       def l(str)
-       Netzke::Core::JsonLiteral.new(str)
+        Netzke::Core::JsonLiteral.new(str)
       end
     end
 
@@ -79,7 +80,7 @@ module Netzke::Core
 
     # Global id in the component tree, following the double-underscore notation, e.g. +books__config_panel__form+
     def js_id
-      @js_id ||= parent.nil? ? @item_id : [parent.js_id, @item_id].join("__")
+      @js_id ||= parent.nil? ? @item_id : [parent.js_id, @item_id].join('__')
     end
 
     def js_xtype
@@ -96,17 +97,17 @@ module Netzke::Core
     end
 
     def js_endpoints
-      self.class.endpoints.keys.map{ |p| p.to_s.camelcase(:lower) }
+      self.class.endpoints.keys.map { |p| p.to_s.camelcase(:lower) }
     end
 
     def js_netzke_plugins
-      plugins.map{ |p| p.to_s.camelcase(:lower) }
+      plugins.map { |p| p.to_s.camelcase(:lower) }
     end
 
     # Instance-level client class config. The result of this method (a hash) is converted to a JSON object and passed as options to the constructor of our JavaScript class.
     # Not to be overridden, override {#configure_client} instead.
     def js_config
-      @js_config ||= ActiveSupport::OrderedOptions.new.tap{|c| configure_client(c)}
+      @js_config ||= ActiveSupport::OrderedOptions.new.tap { |c| configure_client(c) }
     end
 
     # Hash containing configuration for all child components to be instantiated at the JS side
@@ -123,7 +124,7 @@ module Netzke::Core
     # code.
     # It includes JS-classes for the parents, eagerly loaded child components, and itself.
     def js_missing_code(cached = [])
-      code = dependency_classes.inject("") do |r,k|
+      code = dependency_classes.inject('') do |r, k|
         cached.include?(k.client_class_config.xtype) ? r : r + k.client_class_config.code_with_dependencies
       end
       code.blank? ? nil : Netzke::Core::DynamicAssets.minify_js(code)
@@ -166,8 +167,8 @@ module Netzke::Core
     # Merges all the translations in the class hierarchy
     # Note: this method can't be moved out to ClientClassConfig, because I18n is loaded only once, when other Ruby classes are evaluated; so, this must remain at instance level.
     def js_i18n
-      @js_i18n ||= self.class.netzke_ancestors.inject({}) do |r,klass|
-        hsh = klass.client_class_config.translated_properties.inject({}) { |h,t| h.merge(t => I18n.t("#{klass.i18n_id}.#{t}")) }
+      @js_i18n ||= self.class.netzke_ancestors.inject({}) do |r, klass|
+        hsh = klass.client_class_config.translated_properties.inject({}) { |h, t| h.merge(t => I18n.t("#{klass.i18n_id}.#{t}")) }
         r.merge(hsh)
       end
     end

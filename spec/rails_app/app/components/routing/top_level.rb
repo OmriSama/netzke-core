@@ -15,8 +15,8 @@ module Routing
 
     def configure(c)
       super
-      c.title = "TopLevel"
-      c.bbar = [:load_one, :load_two, :load_one_one, :load_one_two]
+      c.title = 'TopLevel'
+      c.bbar = %i[load_one load_two load_one_one load_one_two]
     end
   end
 end

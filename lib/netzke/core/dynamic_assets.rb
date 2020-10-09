@@ -3,7 +3,7 @@ require 'uglifier'
 module Netzke
   module Core
     module DynamicAssets
-      CORE_FILES = %w[js_extensions core notifications remoting_provider base routing]
+      CORE_FILES = %w[js_extensions core notifications remoting_provider base routing].freeze
 
       class << self
         def ext_js(form_authenticity_token)
@@ -21,7 +21,7 @@ module Netzke
         end
 
         def ext_css
-          res = File.new(File.expand_path("../../../../stylesheets/core.css", __FILE__)).read
+          res = File.new(File.expand_path('../../../stylesheets/core.css', __dir__)).read
 
           # Pluggable stylesheets (may be used by other Netzke-powered gems like netzke-basepack)
           Netzke::Core.ext_stylesheets.each do |path|
@@ -34,13 +34,13 @@ module Netzke
 
         def minify_js(js_string)
           if ::Rails.env.test? || ::Rails.env.development?
-            js_string.gsub(/\/\*\*[^*]*\*+(?:[^*\/][^*]*\*+)*\//, '') # strip docs
+            js_string.gsub(%r{/\*\*[^*]*\*+(?:[^*/][^*]*\*+)*/}, '') # strip docs
           else
             Uglifier.compile(js_string)
           end
         end
 
-      private
+        private
 
         # Generates initial javascript code that is dependent on Rails settings
         def initial_dynamic_javascript(form_authenticity_token)

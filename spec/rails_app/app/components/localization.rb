@@ -18,6 +18,6 @@ class Localization < Netzke::Base
   def configure(c)
     super
     c.title = I18n.t('localization.title')
-    c.bbar = [:action_one, :action_two, :action_three, :show_properties]
+    c.bbar = %i[action_one action_two action_three show_properties]
   end
 end

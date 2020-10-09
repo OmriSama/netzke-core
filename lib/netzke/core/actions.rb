@@ -117,11 +117,11 @@ module Netzke::Core
     module ClassMethods
       # Declares an action
       def action(*args, &block)
-        args.each{|name| action(name)} if args.length > 1
+        args.each { |name| action(name) } if args.length > 1
 
         name = args.first
 
-        define_method :"#{name}_action", &(block || ->(c){c})
+        define_method :"#{name}_action", &(block || ->(c) { c })
         # NOTE: "<<" won't work here as this will mutate the array shared between classes
         self._declared_actions += [name]
       end
@@ -129,7 +129,7 @@ module Netzke::Core
       # @return [String|nil] full URI to an icon file by its name (provided we have a controller)
       # NOTE: must stay public, used from ActionConfig
       def uri_to_icon(icon)
-        Netzke::Core.with_icons ? [(controller && controller.config.relative_url_root), Netzke::Core.icons_uri, '/', icon.to_s, ".png"].join : nil
+        Netzke::Core.with_icons ? [controller&.config&.relative_url_root, Netzke::Core.icons_uri, '/', icon.to_s, '.png'].join : nil
       end
     end
 
@@ -141,7 +141,7 @@ module Netzke::Core
           cfg = Netzke::Core::ActionConfig.new(name, self)
           send("#{name}_action", cfg)
           cfg.set_defaults!
-          res[name.to_sym] = cfg.excluded ? {excluded: true} : cfg
+          res[name.to_sym] = cfg.excluded ? { excluded: true } : cfg
         end
       end
     end
@@ -155,17 +155,17 @@ module Netzke::Core
       super detect_and_normalize_action(item)
     end
 
-  private
+    private
 
     def detect_and_normalize_action(item)
-      item = {action: item} if item.is_a?(Symbol) && actions[item]
+      item = { action: item } if item.is_a?(Symbol) && actions[item]
 
       if action_name = action_name_if_action(item)
         action_config = actions[action_name]
         if action_config[:excluded]
-          {excluded: true}
+          { excluded: true }
         else
-          {action: action_name.to_s.camelize(:lower)}
+          { action: action_name.to_s.camelize(:lower) }
         end
       else
         item

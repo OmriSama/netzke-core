@@ -17,9 +17,9 @@ module ExtDirect
     def configure(c)
       super
       c.items = [
-        {:region => :north, :height => 100, component: :selector},
-        {:region => :center, component: :details},
-        {:region => :east, :width => 300, :split => true, component: :statistics}
+        { region: :north, height: 100, component: :selector },
+        { region: :center, component: :details },
+        { region: :east, width: 300, split: true, component: :statistics }
       ]
     end
 

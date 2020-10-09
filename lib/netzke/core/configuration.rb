@@ -39,7 +39,7 @@ module Netzke::Core
 
       # An array of server class config options that should not be passed to the client class. Can be overridden.
       def server_side_config_options
-        [:klass, :client_config]
+        %i[klass client_config]
       end
 
       # Instance of component by config
@@ -107,8 +107,7 @@ module Netzke::Core
     #       raise ArgumentError, "Grid requires a model" if c.model.nil?
     #       c.paging = true if c.edit_inline
     #     end
-    def validate_config(c)
-    end
+    def validate_config(c); end
 
     # During the normalization of config object, +extend_item+ is being called with each item found (recursively) in
     # there.  For example, symbols representing nested child components get replaced with a proper config hash, same
@@ -131,9 +130,7 @@ module Netzke::Core
       c = config.dup
       config.each_pair do |k, v|
         c.delete(k) if self.class.server_side_config_options.include?(k.to_sym)
-        if v.is_a?(Array)
-          c[k] = v.netzke_deep_replace{|el| extend_item(el)}
-        end
+        c[k] = v.netzke_deep_replace { |el| extend_item(el) } if v.is_a?(Array)
       end
       @normalized_config = c
     end

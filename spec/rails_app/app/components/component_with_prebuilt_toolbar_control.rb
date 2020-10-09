@@ -5,6 +5,6 @@ class ComponentWithPrebuiltToolbarControl < Netzke::Base
 
   def configure(c)
     super
-    c.bbar = [ :some_action, "Date:", :prebuilt_control ]
+    c.bbar = [:some_action, 'Date:', :prebuilt_control]
   end
 end

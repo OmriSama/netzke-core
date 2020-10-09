@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Netzke::Core
   describe State do
-    it "sets state on 2 different components properly" do
+    it 'sets state on 2 different components properly' do
       one = Netzke::Base.new(name: 'one')
       two = Netzke::Base.new(name: 'two')
 

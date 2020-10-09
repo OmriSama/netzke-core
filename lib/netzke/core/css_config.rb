@@ -8,7 +8,6 @@ module Netzke
     #       end
     #     end
     class CssConfig
-
       attr_accessor :required_files
 
       def initialize(klass)
@@ -37,15 +36,14 @@ module Netzke
       #     end
       def require(*args)
         callr = caller.first
-        @required_files |= args.map{ |a| a.is_a?(Symbol) ? expand_css_require_path(a, callr) : a }
+        @required_files |= args.map { |a| a.is_a?(Symbol) ? expand_css_require_path(a, callr) : a }
       end
 
-    private
+      private
 
       def expand_css_require_path(sym, callr)
-        %Q(#{callr.split(".rb:").first}/client/#{sym}.css)
+        %(#{callr.split('.rb:').first}/client/#{sym}.css)
       end
-
     end
   end
 end

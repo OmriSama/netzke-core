@@ -12,8 +12,8 @@ module Netzke::Core
       # Delegate everything to session
       def method_missing(method, *args)
         session_data = to_hash
-        session_data.send(method, *args).tap do |d|
-          Netzke::Base.session[:netzke_sessions] = {@component_id => session_data}
+        session_data.send(method, *args).tap do |_d|
+          Netzke::Base.session[:netzke_sessions] = { @component_id => session_data }
         end
       end
 

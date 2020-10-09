@@ -2,15 +2,16 @@ require 'spec_helper'
 
 module Netzke::Core
   describe Configuration do
-    describe "#validate_config" do
-      it "can override config" do
+    describe '#validate_config' do
+      it 'can override config' do
         class OverridingConfig < Netzke::Base
           def configure(c)
             super
-            c.foo = "bar"
+            c.foo = 'bar'
           end
+
           def validate_config(c)
-            c.foo = "baz"
+            c.foo = 'baz'
           end
         end
 

@@ -3,12 +3,12 @@ class SimpleComponent < Netzke::Base
 
   def configure(c)
     c.bbar = [:hello]
-    c.title = c.client_config[:title] || "SimpleComponent"
+    c.title = c.client_config[:title] || 'SimpleComponent'
     super
   end
 
   endpoint :hello do
-    "hi!"
+    'hi!'
   end
 
   client_class do |c|

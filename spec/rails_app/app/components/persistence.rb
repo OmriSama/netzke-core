@@ -8,14 +8,14 @@ class Persistence < Netzke::Base
 
   def configure(c)
     super
-    c.bbar = [:set_state, :reset_state, :set_session_variable, :retrieve_session_variable]
+    c.bbar = %i[set_state reset_state set_session_variable retrieve_session_variable]
 
     # title will be gotten from component's state
-    c.title = state[:title] || "Default title"
+    c.title = state[:title] || 'Default title'
   end
 
   endpoint :set_state do
-    state[:title] = "Title from state"
+    state[:title] = 'Title from state'
   end
 
   endpoint :reset_state do
@@ -23,10 +23,10 @@ class Persistence < Netzke::Base
   end
 
   endpoint :set_session_variable do
-    component_session[:some_variable] = "set"
+    component_session[:some_variable] = 'set'
   end
 
   endpoint :retrieve_session_variable do
-    component_session[:some_variable] || "not set"
+    component_session[:some_variable] || 'not set'
   end
 end

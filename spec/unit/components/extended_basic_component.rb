@@ -1,3 +1,3 @@
-require_relative "./basic_component"
+require_relative './basic_component'
 class ExtendedBasicComponent < BasicComponent
 end

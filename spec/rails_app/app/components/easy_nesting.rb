@@ -20,7 +20,7 @@ class EasyNesting < Netzke::Base
         height: '100%',
         layout: :vbox,
         defaults: {
-          width: "100%"
+          width: '100%'
         },
         items: [{
           class_name: 'SimplePanel',

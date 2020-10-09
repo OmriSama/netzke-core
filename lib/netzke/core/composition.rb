@@ -97,7 +97,7 @@ module Netzke::Core
 
     module ClassMethods
       def component(name, options = {}, &block)
-        define_method :"#{name}_component", &(block || ->(c){c})
+        define_method :"#{name}_component", &(block || ->(c) { c })
         # NOTE: "<<" won't work here as this will mutate the array shared between classes
         self.eagerly_loaded_dsl_components += [name] if options[:eager_load]
       end
@@ -117,7 +117,7 @@ module Netzke::Core
       #   [name] name of the child component to be loaded
       #   [index] clone index of the loaded component
       endpoint :deliver_component do |params|
-        cache = params[:cache].split(",") # array of cached xtypes
+        cache = params[:cache].split(',') # array of cached xtypes
         component_name = params[:name].underscore.to_sym
 
         item_id = params[:item_id]
@@ -130,7 +130,8 @@ module Netzke::Core
         )
 
         if cmp_instance
-          js, css = cmp_instance.js_missing_code(cache), cmp_instance.css_missing_code(cache)
+          js = cmp_instance.js_missing_code(cache)
+          css = cmp_instance.css_missing_code(cache)
           { js: js, css: css, config: cmp_instance.js_config }
         else
           { error: "Couldn't load component '#{component_name}'" }
@@ -150,6 +151,7 @@ module Netzke::Core
     def component_instance(name_or_config, overrides = {})
       cfg = name_or_config.is_a?(Hash) ? name_or_config : component_config(name_or_config, overrides)
       return nil if cfg.nil? || cfg[:excluded]
+
       klass = cfg.klass || cfg.class_name.constantize
       klass.new(cfg, self)
     end
@@ -193,10 +195,10 @@ module Netzke::Core
       super detect_and_normalize_component(item)
     end
 
-  private
+    private
 
     def detect_and_normalize_component(item)
-      item = {component: item} if item.is_a?(Symbol) && respond_to?(:"#{item}_component")
+      item = { component: item } if item.is_a?(Symbol) && respond_to?(:"#{item}_component")
       return item unless item.is_a?(Hash)
       return nil if item[:excluded]
 
@@ -207,9 +209,10 @@ module Netzke::Core
         # components[item_id] = item
         inline_components[item_id.to_sym] = item
         @components_in_config << item_id
-        {netzke_component: item_id}
+        { netzke_component: item_id }
       elsif item_id = item.delete(:component)
         return nil if component_config(item_id)[:excluded]
+
         @components_in_config << item_id
         item.merge(netzke_component: item_id)
       else

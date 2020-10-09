@@ -12,7 +12,7 @@ module Netzke::Core
     def initialize(name, component)
       super
 
-      @text = @tooltip = @icon = ""
+      @text = @tooltip = @icon = ''
 
       build_localized_attributes
 
@@ -25,14 +25,14 @@ module Netzke::Core
       self[:icon] = icon.is_a?(Symbol) ? Netzke::Base.uri_to_icon(icon) : icon
     end
 
-  private
+    private
 
     def build_localized_attributes
       @component.class.netzke_ancestors.each do |c|
         i18n_id = c.i18n_id
-        @text = I18n.t("#{i18n_id}.actions.#{@name}.text", default: "").presence || @text
-        @tooltip = I18n.t("#{i18n_id}.actions.#{@name}.tooltip", default: "").presence || @tooltip
-        @icon = I18n.t("#{i18n_id}.actions.#{@name}.icon", default: "").presence || @icon
+        @text = I18n.t("#{i18n_id}.actions.#{@name}.text", default: '').presence || @text
+        @tooltip = I18n.t("#{i18n_id}.actions.#{@name}.tooltip", default: '').presence || @tooltip
+        @icon = I18n.t("#{i18n_id}.actions.#{@name}.icon", default: '').presence || @icon
       end
     end
   end

@@ -4,9 +4,8 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'rails', '~> 5.1.0'
-# TODO: Unlock this
 gem 'puma'
+gem 'rails', '~> 5.1.0'
 gem 'rake'
 gem 'sprockets', '< 4.0.0'
 gem 'sqlite3'
@@ -16,8 +15,8 @@ group :test do
   gem 'capybara'
   gem 'capybara-selenium'
   gem 'rspec'
-  gem 'rspec-rails', '~> 3.5.0'
-  gem 'selenium-webdriver', '~> 3.4.4'
+  gem 'rspec-rails'
+  gem 'selenium-webdriver'
   gem 'webdrivers'
 end
 
@@ -27,7 +26,7 @@ group :development do
   gem 'rubocop-rails'
   gem 'rubocop-rake'
   gem 'rubocop-rspec'
-  gem 'web-console', '~> 2.0'
+  gem 'web-console'
 end
 
 group :development, :test do

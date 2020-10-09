@@ -9,7 +9,7 @@ class SomeComposite < Netzke::Base
 
   def configure(c)
     super
-    c.items = [:nested_one, {component: :nested_two}]
+    c.items = [:nested_one, { component: :nested_two }]
   end
 end
 
@@ -39,7 +39,7 @@ end
 
 class BaseComposite < Netzke::Base
   component :component_one do |c|
-    c.title = "My Cool Component"
+    c.title = 'My Cool Component'
   end
 
   component :first_component_two do |c|
@@ -52,18 +52,18 @@ class BaseComposite < Netzke::Base
 
   def configure(c)
     super
-    c.items = [ :first_component_two, :second_component_two ]
+    c.items = %i[first_component_two second_component_two]
   end
 end
 
 class ExtendedComposite < BaseComposite
   component :component_one do |c|
     super c
-    c.title = c.title + ", extended"
+    c.title = c.title + ', extended'
   end
 
   component :component_two do |c|
-    c.title = "Another Nested Component"
+    c.title = 'Another Nested Component'
   end
 end
 
@@ -84,7 +84,7 @@ class ComponentWithExcluded < Netzke::Base
 
   def configure(c)
     super
-    c.items = [:accessible, :inaccessible]
+    c.items = %i[accessible inaccessible]
   end
 end
 
@@ -94,8 +94,8 @@ class InlineComposite < Netzke::Base
     c.items = [
       {
         klass: ComponentOne,
-        title: "Declared inline",
-        item_id: "one"
+        title: 'Declared inline',
+        item_id: 'one'
       }
     ]
   end
@@ -129,7 +129,7 @@ class HybridComposite < Netzke::Base
 
   def configure(c)
     super
-    c.items = [:component_one, {klass: ComponentOne}]
+    c.items = [:component_one, { klass: ComponentOne }]
   end
 end
 
@@ -138,6 +138,6 @@ class ExtendChildrenConfig < Netzke::Base
 
   def configure(c)
     super
-    c.items = [{foo: 'bar', component: :component_one}]
+    c.items = [{ foo: 'bar', component: :component_one }]
   end
 end

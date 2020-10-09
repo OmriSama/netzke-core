@@ -13,13 +13,13 @@ module ActionDispatch::Routing
     #     class AdminController < ApplicationController
     #       include Netzke::Railz::ControllerExtensions
     #     end
-    def netzke(prefix = "/netzke", options = {})
+    def netzke(prefix = '/netzke', options = {})
       controller = options[:controller] || :netzke
 
-      get "#{prefix}" => "#{controller.to_s}#index", as: :netzke
-      get "#{prefix}/ext(.:format)" => "#{controller.to_s}#ext", as: :netzke_ext
-      match "#{prefix}/direct" => "#{controller.to_s}#direct", as: :netzke_direct, via: [:get, :post]
-      match "#{prefix}/dispatcher" => "#{controller.to_s}#dispatcher", as: :netzke_dispatcher, via: [:get, :post]
+      get prefix.to_s => "#{controller}#index", as: :netzke
+      get "#{prefix}/ext(.:format)" => "#{controller}#ext", as: :netzke_ext
+      match "#{prefix}/direct" => "#{controller}#direct", as: :netzke_direct, via: %i[get post]
+      match "#{prefix}/dispatcher" => "#{controller}#dispatcher", as: :netzke_dispatcher, via: %i[get post]
     end
   end
 end

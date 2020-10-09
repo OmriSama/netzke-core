@@ -21,7 +21,7 @@ module Netzke
       #   +true+ otherwise
       def load_netzke(params = {})
         params[:minified] = !Rails.env.development? if params[:minified].nil?
-        params[:theme] ||= "triton"
+        params[:theme] ||= 'triton'
 
         raw([netzke_html, netzke_css_include(params), netzke_css(params), netzke_js_include(params), netzke_js(params)].join("\n"))
       end
@@ -54,7 +54,7 @@ module Netzke
         content_for :netzke_on_ready, raw("#{cmp.js_component_instance}\n\n#{cmp.js_component_render}")
 
         # Now mark all this component's dependency classes (including self) as rendered (by storing their xtypes), so that we only generate a class once per view
-        @rendered_classes = (@rendered_classes + cmp.dependency_classes.map{|k| k.client_class_config.xtype}).uniq
+        @rendered_classes = (@rendered_classes + cmp.dependency_classes.map { |k| k.client_class_config.xtype }).uniq
 
         # Return the html for this component
         raw(cmp.js_component_html)
@@ -63,9 +63,9 @@ module Netzke
       private
 
       def netzke_html
-        %{
+        %(
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        }
+        )
       end
 
       # Link tags for all the required stylsheets
@@ -82,11 +82,13 @@ module Netzke
       end
 
       # Inline CSS specific for the page
-      def netzke_css(params)
-        %{
+      def netzke_css(_params)
+        if content_for(:netzke_css).present?
+          %(
   <style type="text/css" media="screen">
     #{content_for(:netzke_css)}
-  </style>} if content_for(:netzke_css).present?
+  </style>)
+        end
       end
 
       # Script tags for all the required JavaScript
@@ -106,18 +108,16 @@ module Netzke
       end
 
       # Inline JavaScript for all Netzke classes on the page, as well as Ext.onReady, which renders Netzke components in this view after the page is loaded
-      def netzke_js(params = {})
+      def netzke_js(_params = {})
         res = []
         res << content_for(:netzke_js_classes)
 
-        res << "Ext.onReady(function(){"
+        res << 'Ext.onReady(function(){'
         res << content_for(:netzke_on_ready)
-        res << "});"
+        res << '});'
 
         javascript_tag(res.join("\n"))
       end
-
     end
-
   end
 end

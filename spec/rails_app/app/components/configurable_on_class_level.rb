@@ -1,8 +1,8 @@
 class ConfigurableOnClassLevel < Netzke::Base
   class_attribute :title
-  self.title = "Default"
+  self.title = 'Default'
 
   client_class do |c|
-    c.title = self.title
+    c.title = title
   end
 end

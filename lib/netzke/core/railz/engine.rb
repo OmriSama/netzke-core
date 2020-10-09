@@ -1,18 +1,18 @@
 module Netzke
   module Railz
     class Engine < Rails::Engine
-      initializer "netzke.core" do |app|
+      initializer 'netzke.core' do |app|
         # app.config.eager_load_paths += ["#{app.config.root}/app/components"]
       end
 
       # before loading initializers
-      config.before_initialize do |app|
+      config.before_initialize do |_app|
         Netzke::Core.ext_path = Rails.root.join('public', Netzke::Core.ext_uri[1..-1])
       end
 
-      config.after_initialize do |app|
+      config.after_initialize do |_app|
         if Netzke::Core.with_icons.nil?
-          Netzke::Core.with_icons = File.exists?("#{::Rails.root}/public#{Netzke::Core.icons_uri}")
+          Netzke::Core.with_icons = File.exist?("#{::Rails.root}/public#{Netzke::Core.icons_uri}")
         end
       end
     end

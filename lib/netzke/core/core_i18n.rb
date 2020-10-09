@@ -5,7 +5,7 @@ module Netzke
       module ClassMethods
         # The ID used to locate this component's block in locale files
         def i18n_id
-          name.split("::").map{|c| c.underscore}.join(".")
+          name.split('::').map { |c| c.underscore }.join('.')
         end
       end
 

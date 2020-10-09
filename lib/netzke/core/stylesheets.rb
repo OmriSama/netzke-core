@@ -9,7 +9,7 @@ module Netzke::Core
 
     module ClassMethods
       # Configures JS class
-      def client_styles &block
+      def client_styles(&block)
         block.call(css_config)
       end
 
@@ -21,15 +21,17 @@ module Netzke::Core
       def css_included
         # Prevent re-including code that was already included by the parent
         # (thus, only include those JS files when include_js was defined in the current class, not in its ancestors)
-        ((singleton_methods(false).map(&:to_sym).include?(:include_css) ? include_css : [] ) + css_config.required_files).inject(""){ |r, path| r + File.new(path).read + "\n"}
+        ((singleton_methods(false).map(&:to_sym).include?(:include_css) ? include_css : []) + css_config.required_files).inject('') { |r, path| r + File.new(path).read + "\n" }
       end
 
       # All CSS code needed for this class including the one from the ancestor component
       def css_code(cached = [])
-        res = ""
+        res = ''
 
         # include the base-class javascript if doing JS inheritance
-        res << superclass.css_code << "\n" if !client_class_config.extending_extjs_component? && !cached.include?(superclass.name)
+        if !client_class_config.extending_extjs_component? && !cached.include?(superclass.name)
+          res << superclass.css_code << "\n"
+        end
 
         res << css_included << "\n"
 
@@ -38,11 +40,10 @@ module Netzke::Core
     end
 
     def css_missing_code(cached = [])
-      code = dependency_classes.inject("") do |r,k|
+      code = dependency_classes.inject('') do |r, k|
         cached.include?(k.client_class_config.xtype) ? r : r + k.css_code(cached)
       end
       code.blank? ? nil : code
     end
-
   end
 end

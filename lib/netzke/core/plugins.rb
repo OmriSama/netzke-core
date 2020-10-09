@@ -17,7 +17,8 @@ module Netzke::Core
         end
       end
 
-    private
+      private
+
       # Register a plugin
       def register_plugin(name)
         self.registered_plugins |= [name]

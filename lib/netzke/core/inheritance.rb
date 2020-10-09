@@ -18,11 +18,11 @@ module Netzke
         def inherited(base)
           base.called_from = begin
             cllr = if Kernel.respond_to?(:caller_locations)
-              location = caller_locations.first
-              location.absolute_path || location.path
-            else
-              caller.first.sub(/:\d+.*/, '')
-            end
+                     location = caller_locations.first
+                     location.absolute_path || location.path
+                   else
+                     caller.first.sub(/:\d+.*/, '')
+                   end
 
             cllr[0..-4]
           end

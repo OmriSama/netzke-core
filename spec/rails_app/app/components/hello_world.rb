@@ -1,7 +1,7 @@
 class HelloWorld < Netzke::Base
   # Configure clint class
   client_class do |c|
-    c.title = "Hello World component"
+    c.title = 'Hello World component'
   end
 
   # Actions are used by Ext JS to share functionality and state b/w buttons and menu items
@@ -17,6 +17,6 @@ class HelloWorld < Netzke::Base
   # Endpoint callable from client class
   endpoint :greet_the_world do
     # call client class' method showGreeting
-    client.show_greeting("Hello World!")
+    client.show_greeting('Hello World!')
   end
 end

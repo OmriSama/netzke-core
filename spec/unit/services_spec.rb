@@ -6,11 +6,11 @@ class TestComponent < Netzke::Base
 end
 
 describe Netzke::Core::Services do
-  it "should be able to register endpoints" do
+  it 'should be able to register endpoints' do
     expect(TestComponent.endpoints).to include :some_action
   end
 
-  it "should have deliver_component endpoint" do
+  it 'should have deliver_component endpoint' do
     expect(TestComponent.endpoints).to include :deliver_component
   end
 end

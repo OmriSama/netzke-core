@@ -1,7 +1,7 @@
 # Subsequent loading of tabs should result in functional "tab" component instances
 class MultiInstanceLoading < Netzke::Base
   client_class do |c|
-    c.extend = "Ext.tab.Panel"
+    c.extend = 'Ext.tab.Panel'
   end
 
   action :load_hello_user
@@ -18,6 +18,6 @@ class MultiInstanceLoading < Netzke::Base
 
   def configure(c)
     super
-    c.bbar = [:load_hello_user, :load_hello_user_in_precreated_tab, :load_composition, :load_config_only]
+    c.bbar = %i[load_hello_user load_hello_user_in_precreated_tab load_composition load_config_only]
   end
 end

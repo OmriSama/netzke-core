@@ -3,7 +3,7 @@ module Scoped
     class Scoping < Scoped::Scoping
       def configure(c)
         super
-        c.title = c.title + " extended in DeeplyScoped"
+        c.title = c.title + ' extended in DeeplyScoped'
       end
     end
   end

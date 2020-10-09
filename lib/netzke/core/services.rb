@@ -89,17 +89,19 @@ module Netzke::Core
     end
 
     module ClassMethods
-      def endpoint(name, options = {}, &block)
+      def endpoint(name, _options = {}, &block)
         register_endpoint(name)
         define_method("#{name}_endpoint", &block)
       end
 
-    protected
+      protected
 
       # Registers an endpoint at the class level
       def register_endpoint(ep)
-        self.endpoints = self.endpoints.dup if self.superclass.respond_to?(:endpoints) && self.endpoints == self.superclass.endpoints #  only dup for the first endpoint declaration
-        self.endpoints[ep.to_sym] = true
+        if superclass.respond_to?(:endpoints) && endpoints == superclass.endpoints
+          self.endpoints = endpoints.dup
+        end #  only dup for the first endpoint declaration
+        endpoints[ep.to_sym] = true
       end
     end
 
@@ -121,8 +123,8 @@ module Netzke::Core
         # Let's try to find it in a component down the tree
         child_component, *action = endpoint.to_s.split('__')
 
-        action = !action.empty? && action.join("__").to_sym
-        return unknown_exception(:endpoint, endpoint) if !action
+        action = !action.empty? && action.join('__').to_sym
+        return unknown_exception(:endpoint, endpoint) unless action
 
         client_config = configs.shift || {}
         child_config = component_config(child_component.to_sym, client_config: client_config)
@@ -139,7 +141,7 @@ module Netzke::Core
 
     # Called when the method_missing tries to processes a non-existing component. Override when needed.
     # Note: this should actually never happen unless you mess up with Netzke component loading mechanisms.
-    def component_missing(missing_component, *params)
+    def component_missing(missing_component, *_params)
       client.netzke_notify "Unknown component '#{missing_component}' in '#{name}'"
     end
 
@@ -147,9 +149,9 @@ module Netzke::Core
 
     def unknown_exception(entity_name, entity)
       client.netzke_set_result(error: {
-        type: "UNKNOWN_#{entity_name.to_s.upcase}",
-        msg: "Component '#{self.class.name}' does not have #{entity_name} '#{entity}'"
-      })
+                                 type: "UNKNOWN_#{entity_name.to_s.upcase}",
+                                 msg: "Component '#{self.class.name}' does not have #{entity_name} '#{entity}'"
+                               })
 
       client
     end
