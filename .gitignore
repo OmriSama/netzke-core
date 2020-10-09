@@ -26,6 +26,7 @@
 /.bundle
 /.bundle/
 /.config
+/.yardoc/
 /build-iPhoneOS/
 /build-iPhoneSimulator/
 /build/
