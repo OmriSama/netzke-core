@@ -57,11 +57,11 @@ Manifest
 node_modules/
 pickle-email-*.html
 pkg
-public/assets
-public/packs
-public/packs-test
-public/system
-public/uploads
+**/public/assets
+**/public/packs
+**/public/packs-test
+**/public/system
+**/public/uploads
 rerun.txt
 spec/examples.txt
 spec/rails_app/db/schema.rb
