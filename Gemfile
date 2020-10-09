@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'bootsnap'
+gem 'bootsnap', require: false
 gem 'puma'
 gem 'rails', '< 6.0.0'
 gem 'rake'
