@@ -4,8 +4,9 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'bootsnap'
 gem 'puma'
-gem 'rails', '~> 5.1.0'
+gem 'rails', '< 6.0.0'
 gem 'rake'
 gem 'sprockets', '< 4.0.0'
 gem 'sqlite3'
@@ -27,6 +28,7 @@ group :development do
   gem 'rubocop-rails'
   gem 'rubocop-rake'
   gem 'rubocop-rspec'
+  gem 'spring'
   gem 'web-console'
 end
 
