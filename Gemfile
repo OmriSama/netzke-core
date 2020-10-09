@@ -21,6 +21,7 @@ group :test do
 end
 
 group :development do
+  gem 'listen'
   gem 'rubocop'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
