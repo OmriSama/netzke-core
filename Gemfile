@@ -33,6 +33,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'cm_shared', path: File.expand_path('../../cm_shared', __dir__)
   gem 'netzke-testing'
   gem 'pry-rails'
 end

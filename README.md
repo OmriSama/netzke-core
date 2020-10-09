@@ -286,7 +286,7 @@ By default, Netzke assumes that your Ext JS library is located in `public/extjs`
 
 ## Running tests
 
-The bundled `spec/rails_app` application used for automated testing can be easily run as a stand-alone Rails app. It's a good source of concise, focused examples. After starting the application, access any of the test components (located in `spec/rails_app/app/components`) by using the following url:
+The bundled `spec/dummy` application used for automated testing can be easily run as a stand-alone Rails app. It's a good source of concise, focused examples. After starting the application, access any of the test components (located in `spec/dummy/app/components`) by using the following url:
 
     http://localhost:3000/netzke/components/{name of the component's class}
 
@@ -300,7 +300,7 @@ To run all the tests (from the gem's root):
 
     $ rake
 
-This assumes that the Ext JS library is located/symlinked in `spec/rails_app/public/extjs`. If you want to use Sencha CDN instead, run:
+This assumes that the Ext JS library is located/symlinked in `spec/dummy/public/extjs`. If you want to use Sencha CDN instead, run:
 
     $ EXTJS_SRC=cdn rake
 

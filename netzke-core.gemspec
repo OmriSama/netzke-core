@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
     '{app,config,javascripts,lib,stylesheets,tasks}/**/*',
     '[A-Z]*',
     'init.rb'
-  ] - ['Gemfile.lock', 'spec/rails_app/public/extjs']
+  ] - ['Gemfile.lock', 'spec/dummy/public/extjs']
   s.test_files    = Dir['{test}/**/*']
   s.require_paths = ['lib']
 

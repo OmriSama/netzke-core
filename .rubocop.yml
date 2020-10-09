@@ -1,0 +1,6 @@
+inherit_gem:
+  cm_shared: config/rubocop/default.yml
+
+AllCops:
+  Exclude:
+    - spec/dummy/public/extjs/**/*

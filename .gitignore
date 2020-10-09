@@ -65,9 +65,9 @@ pkg
 **/public/uploads
 rerun.txt
 spec/examples.txt
-spec/rails_app/db/schema.rb
-spec/rails_app/public/extjs
-spec/rails_app/tmp/
+spec/dummy/db/schema.rb
+spec/dummy/public/extjs
+spec/dummy/tmp/
 spec/reports/
 spec/tmp
 yarn-debug.log*

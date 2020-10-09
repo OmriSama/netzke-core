@@ -1,6 +1,6 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../spec/rails_app/config/environment', __dir__)
+require File.expand_path('../spec/dummy/config/environment', __dir__)
 require 'rspec/rails'
 require File.expand_path(File.dirname(__FILE__) + '/capybara_config')
 require 'capybara/rspec'
